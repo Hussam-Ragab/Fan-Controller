@@ -1,0 +1,43 @@
+18:17:47 **** Incremental Build of configuration Debug for project FanController ****
+make all 
+Building file: ../App.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=1000000UL -MMD -MP -MF"App.d" -MT"App.o" -c -o "App.o" "../App.c"
+Finished building: ../App.c
+ 
+Building file: ../LM35.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=1000000UL -MMD -MP -MF"LM35.d" -MT"LM35.o" -c -o "LM35.o" "../LM35.c"
+Finished building: ../LM35.c
+ 
+Building target: FanController.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,FanController.map -mmcu=atmega32 -o "FanController.elf"  ./ADC.o ./App.o ./GPIO.o ./LCD.o ./LM35.o ./Motor.o ./PWM.o   
+Finished building target: FanController.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S FanController.elf  >"FanController.lss"
+Finished building: FanController.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex FanController.elf  "FanController.hex"
+Finished building: FanController.hex
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 FanController.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    9744 bytes (29.7% Full)
+(.text + .data + .bootloader)
+
+Data:        304 bytes (14.8% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+18:17:48 Build Finished. 0 errors, 0 warnings. (took 1s.490ms)
+

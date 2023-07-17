@@ -1,0 +1,13 @@
+/*
+ * PWM.h
+ *
+ *  Created on: Jun 27, 2023
+ *      Author: Hossam Ragab
+ */
+
+#ifndef PWM_H_
+#define PWM_H_
+
+void PWM_TIMER0_Start(unsigned char DutyCycle);
+
+#endif /* PWM_H_ */

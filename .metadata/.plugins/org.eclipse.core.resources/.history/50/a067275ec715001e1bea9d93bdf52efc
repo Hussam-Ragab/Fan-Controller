@@ -1,0 +1,116 @@
+ /******************************************************************************
+ *
+ * Module: ADC
+ *
+ * File Name: ADC.h
+ *
+ * Description: Header file for the ADC driver
+ *
+ * Author: Mohamed Tarek
+ *
+ *******************************************************************************/
+
+#ifndef ADC_H_
+#define ADC_H_
+
+#include "Standard_Types.h"
+
+
+/*******************************************************************************
+ *                    Types Declaration of ADC  						     *
+ *******************************************************************************/
+typedef enum{
+	AREF,
+	AVCC,
+	Internal_Vref=3
+
+}ADC_ReferenceSelection;
+
+typedef enum{
+	F_CPU_Clock0_2, F_CPU_Clock1_2, F_CPU_4, F_CPU_8, F_CPU_16, F_CPU_32, F_CPU_64, F_CPU_128
+
+}ADC_Prescaler;
+
+typedef enum{
+	Free_Running_mode, Analog_Comparator, External_Interrupt_Request0, Timer0_Compare_Match, Timer0_Overflow, Timer1_Compare_MatchB, Timer1_Overflow,
+	Timer1_Capture_Event
+}ADC_TriggerSource;
+
+typedef enum{
+	ADC0, ADC1, ADC2, ADC3, ADC4, ADC5, ADC6, ADC7
+
+}ADC_Channel;
+
+typedef enum{
+	ADLAR_Low, ADLAR_High
+
+}ADC_Representation;
+
+typedef struct{
+	ADC_ReferenceSelection Refrence;
+	ADC_Channel Channel;
+	ADC_Representation Represent;
+	ADC_Prescaler Clock;
+	ADC_TriggerSource Trigger_Mode;
+}ADC_Configure;
+
+/*******************************************************************************
+ *                   Macros For Defining Registers ADC of AVR ATMEGA32       *
+ *******************************************************************************/
+/*Special FunctionIO Register*/
+#define		SFIOR_REG		(*(volatile uint8*)(0x50))
+/*PINS OF SFIOR REGISTER*/
+#define		ADTS0_PIN5		5
+#define		ADTS1_PIN6		6
+#define		ADTS2_PIN7		7
+
+/*ADC Multiplexer Selection Register*/
+#define		ADMUX_REG		(*(volatile uint8*)(0x27))
+/*PINS OF ADMUX REGISTER*/
+#define		MUX0_PIN0		0
+#define		MUX1_PIN1		1
+#define		MUX2_PIN2		2
+#define		MUX3_PIN3		3
+#define		MUX4_PIN4		4
+#define		ADLAR_PIN5		5
+#define		REFS0_PIN6		6
+#define		REFS1_PIN7		7
+
+/*ADC Control and Status Register A */
+#define		ADCSRA_REG		(*(volatile uint8*)(0x26))
+/*PINS OF ADCSRA REGISTER*/
+#define		ADPS0_PIN0		0
+#define		ADPS1_PIN1		1
+#define		ADPS2_PIN2		2
+#define		ADIE_PIN3		3
+#define		ADIF_PIN4		4
+#define		ADATE_PIN5		5
+#define		ADSC_PIN6		6
+#define		ADEN_PIN7		7
+
+/*The ADC Data Register – ADCL and ADCH*/
+#define		ADC_REG				(*(volatile uint16*)(0x24))
+#define		ADCL_REG			(*(volatile uint8*)(0x24))
+#define		ADCH_REG			(*(volatile uint8*)(0x25))
+
+#define 	ADC_REFRENCE_VOLTAGE		2.56
+#define 	ADC_MAX_VOLTAGE
+#define 	POLLING						0
+#define 	INTERRUPT					1
+#define 	ADC_TECHNIQUE 				POLLING
+
+/*******************************************************************************
+ *                   Functions Prototype of ADC Drivers      				 *
+ *******************************************************************************/
+
+/*Initialization of ADC */
+void ADC_Init(const ADC_Configure *Configure_Ptr);
+#if (ADC_TECHNIQUE == INTERRUPT)
+/*Read Channel use Interrupt*/
+void ADC_ReadChannel(uint8 Channel_Number);
+#elif (ADC_TECHNIQUE == POLLING)
+/*Read Channel use Polling*/
+uint16 ADC_ReadChannel(uint8 Channel_Number);
+#endif
+
+#endif /* ADC_H_ */

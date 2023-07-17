@@ -1,0 +1,36 @@
+
+
+#include "Common_Macros.h"
+#include "GPIO.h"
+#include "Motor.h"
+#include "PWM.h"
+void DcMotor_Init(void)
+{
+	GPIO_SetupPinDirection(MOTOR_PORT_ID, MOTOR_PIN0_ID, PIN_OUTPUT);
+	GPIO_SetupPinDirection(MOTOR_PORT_ID, MOTOR_PIN1_ID, PIN_OUTPUT);
+	GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, 0);
+			GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, 0);
+
+
+}
+
+void DcMotor_Rotate(DcMotor_State State, uint8 Speed)
+{
+	if(State == Stop)
+	{
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_LOW);
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_LOW);
+
+	}
+	else if(State == ClockWise)
+	{
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_HIGH);
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_LOW);
+		PWM_Timer0_Start(Speed);
+
+	}
+
+}
+
+
+

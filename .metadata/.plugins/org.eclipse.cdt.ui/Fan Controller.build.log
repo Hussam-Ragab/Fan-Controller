@@ -1,0 +1,11 @@
+10:50:52 **** Incremental Build of configuration Debug for project Fan Controller ****
+make all 
+Building target: Fan Controller.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Fan Controller.map -mmcu=atmega32 -o "Fan Controller.elf"  ./Application.o ./GPIO.o ./LCD.o   
+avr-gcc.exe: Controller.map: No such file or directory
+make: *** [Fan Controller.elf] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+10:50:53 Build Failed. 1 errors, 0 warnings. (took 877ms)
+

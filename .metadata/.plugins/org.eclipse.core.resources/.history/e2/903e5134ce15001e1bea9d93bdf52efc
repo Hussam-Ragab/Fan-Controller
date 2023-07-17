@@ -1,0 +1,15 @@
+/*
+ * PWM.h
+ *
+ *  Created on: Jun 27, 2023
+ *      Author: Hossam Ragab
+ */
+
+#ifndef PWM_H_
+#define PWM_H_
+
+#include "Standard_Types.h"
+
+void PWM_Timer0_Start(uint8 DutyCycle);
+
+#endif /* PWM_H_ */

@@ -1,0 +1,47 @@
+/******************************************************************************
+ *
+ * Module: Dc-Motor
+ *
+ * File Name: Motor.c
+ *
+ * Description: Source file of Dc-Motor Driver
+ *
+ * Author: Hossam-Ragab
+ *
+ *******************************************************************************/
+
+#include "GPIO.h"
+#include "Motor.h"
+#include "PWM.h"
+
+void DcMotor_Init(void)
+{
+	GPIO_SetupPinDirection(MOTOR_PORT_ID, MOTOR_PIN0_ID, PIN_OUTPUT);
+	GPIO_SetupPinDirection(MOTOR_PORT_ID, MOTOR_PIN1_ID, PIN_OUTPUT);
+
+}
+
+void DcMotor_Rotate(DcMotor_State State, uint8 Speed)
+{
+	if(State == Stop)
+	{
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_LOW);
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_LOW);
+
+	}
+	else if(State == ClockWise)
+	{
+		PWM_Timer0_Start(Speed);
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_HIGH);
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_LOW);
+	}
+	else
+	{
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN0_ID, LOGIC_LOW);
+		GPIO_WritePin(MOTOR_PORT_ID, MOTOR_PIN1_ID, LOGIC_HIGH);
+	}
+
+}
+
+
+

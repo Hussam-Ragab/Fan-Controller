@@ -1,0 +1,305 @@
+/******************************************************************************
+ *
+ * Module: GPIO
+ *
+ * File Name: GPIO.c
+ *
+ * Description: Source file of AVR GPIO Driver
+ *
+ * Author: Mohamed Tarek
+ *
+ *******************************************************************************/
+#include "GPIO.h"
+
+void GPIO_SetupPinDirection(uint8 Port_Number, uint8 Pin_Number, GPIO_PinDirectionType Direction)
+{
+	/*Validation for Inputs*/
+	if((Port_Number >= NUMBER_OF_PORTS) || (Pin_Number >= NUMBER_OF_PINS_PER_PORT))
+	{
+		/*Do Nothing*/
+	}
+	else
+	{
+		switch(Port_Number)
+		{
+		case PORTA_ID:
+			if(Direction == PIN_OUTPUT)
+			{
+				SET_BIT(DDRA_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(DDRA_REG,Pin_Number);
+
+			}
+			break;
+
+		case PORTB_ID:
+			if(Direction == PIN_OUTPUT)
+			{
+				SET_BIT(DDRB_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(DDRB_REG,Pin_Number);
+
+			}
+			break;
+
+		case PORTC_ID:
+			if(Direction == PIN_OUTPUT)
+			{
+				SET_BIT(DDRC_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(DDRC_REG,Pin_Number);
+
+			}
+			break;
+
+		case PORTD_ID:
+			if(Direction == PIN_OUTPUT)
+			{
+				SET_BIT(DDRD_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(DDRD_REG,Pin_Number);
+
+			}
+			break;
+		}
+
+	}
+
+}
+
+void GPIO_WritePin(uint8 Port_Number, uint8 Pin_Number, uint8 Value)
+{
+	/*Validation for Inputs*/
+	if((Port_Number >= NUMBER_OF_PORTS) || (Pin_Number >= NUMBER_OF_PINS_PER_PORT))
+	{
+		/*Do Nothing*/
+	}
+	else
+	{
+		switch(Port_Number)
+		{
+		case PORTA_ID:
+			if(Value == LOGIC_HIGH)
+			{
+				SET_BIT(PORTA_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(PORTA_REG,Pin_Number);
+
+			}
+			break;
+
+		case PORTB_ID:
+			if(Value == LOGIC_HIGH)
+			{
+				SET_BIT(PORTB_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(PORTB_REG,Pin_Number);
+
+			}
+			break;
+
+		case PORTC_ID:
+			if(Value == LOGIC_HIGH)
+			{
+				SET_BIT(PORTC_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(PORTC_REG,Pin_Number);
+
+			}
+			break;
+
+		case PORTD_ID:
+			if(Value == LOGIC_HIGH)
+			{
+				SET_BIT(PORTD_REG,Pin_Number);
+
+			}
+			else
+			{
+				CLEAR_BIT(PORTD_REG,Pin_Number);
+
+			}
+			break;
+		}
+
+	}
+
+}
+
+uint8 GPIO_ReadPin(uint8 Port_Number, uint8 Pin_Number)
+{
+	uint8 PinValue = LOGIC_LOW;
+
+	/*Validation for Inputs*/
+	if((Port_Number >= NUMBER_OF_PORTS) || (Pin_Number >= NUMBER_OF_PINS_PER_PORT))
+	{
+		/*Do Nothing*/
+	}
+	else
+	{
+		switch(Port_Number)
+		{
+		case PORTA_ID:
+			if(GET_BIT(PINA_REG,Pin_Number) == LOGIC_HIGH)
+			{
+				PinValue = LOGIC_HIGH;
+			}
+			else
+			{
+				PinValue = LOGIC_LOW;
+			}
+			break;
+
+		case PORTB_ID:
+			if(GET_BIT(PINB_REG,Pin_Number) == LOGIC_HIGH)
+			{
+				PinValue = LOGIC_HIGH;
+			}
+			else
+			{
+				PinValue = LOGIC_LOW;
+			}
+			break;
+
+		case PORTC_ID:
+			if(GET_BIT(PINC_REG,Pin_Number) == LOGIC_HIGH)
+			{
+				PinValue = LOGIC_HIGH;
+			}
+			else
+			{
+				PinValue = LOGIC_LOW;
+			}
+			break;
+
+		case PORTD_ID:
+			if(GET_BIT(PIND_REG,Pin_Number) == LOGIC_HIGH)
+			{
+				PinValue = LOGIC_HIGH;
+			}
+			else
+			{
+				PinValue = LOGIC_LOW;
+			}
+			break;
+		}
+
+	}
+	return PinValue;
+}
+
+void GPIO_SetupPortDirection(uint8 Port_Number, GPIO_PortDirectionType Direction)
+{
+	/*Validation for Inputs*/
+	if((Port_Number >= NUMBER_OF_PORTS))
+	{
+		/*Do Nothing*/
+	}
+	else
+	{
+		switch(Port_Number)
+		{
+		case PORTA_ID:
+			DDRA_REG = Direction;
+			break;
+
+		case PORTB_ID:
+			DDRB_REG = Direction;
+			break;
+
+		case PORTC_ID:
+			DDRC_REG = Direction;
+			break;
+
+		case PORTD_ID:
+			DDRD_REG = Direction;
+			break;
+		}
+	}
+}
+void GPIO_WritePort(uint8 Port_Number, uint8 Value)
+{
+	/*Validation for Inputs*/
+	if((Port_Number >= NUMBER_OF_PORTS))
+	{
+		/*Do Nothing*/
+	}
+	else
+	{
+		switch(Port_Number)
+		{
+		case PORTA_ID:
+			PORTA_REG = Value;
+			break;
+
+		case PORTB_ID:
+			PORTB_REG = Value;
+			break;
+
+		case PORTC_ID:
+			PORTC_REG = Value;
+			break;
+
+		case PORTD_ID:
+			PORTD_REG = Value;
+			break;
+		}
+	}
+
+}
+
+uint8 GPIO_ReadPort(uint8 Port_Number)
+{
+	uint8 PortValue = LOGIC_LOW;
+
+	/*Validation for Inputs*/
+	if((Port_Number >= NUMBER_OF_PORTS))
+	{
+		/*Do Nothing*/
+	}
+	else
+	{
+		switch(Port_Number)
+		{
+		case PORTA_ID:
+			PortValue = PINA_REG;
+			break;
+
+		case PORTB_ID:
+			PortValue = PINB_REG;
+			break;
+
+		case PORTC_ID:
+			PortValue = PINC_REG;
+			break;
+
+		case PORTD_ID:
+			PortValue = PIND_REG;
+			break;
+		}
+	}
+
+	return PortValue;
+
+}

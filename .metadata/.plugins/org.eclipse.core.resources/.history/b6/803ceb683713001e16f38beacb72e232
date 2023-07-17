@@ -1,0 +1,35 @@
+/*
+ * LM35.c
+ *
+ *  Created on: Jun 20, 2023
+ *      Author: Hossam Ragab
+ */
+#include "LM35.h"
+#include "ADC.h"
+#include <util/delay.h>
+
+#if (ADC_TECHNIQUE == INTERRUPT)
+extern uint16 g_AdcValue;
+#endif
+
+
+uint8 LM35_GetTemperature(void)
+{
+	uint8 Temp_Value = 0;
+
+#if (ADC_TECHNIQUE == INTERRUPT)
+	ADC_ReadChannel(ADC2);
+	_delay_ms(5);
+	Temp_Value = (uint8)(((uint32)g_AdcValue*150*5)/(1023*1.5));
+
+#elif (ADC_TECHNIQUE == POLLING)
+	uint16 Adc_Value = 0;
+	Adc_Value = ADC_ReadChannel(ADC2);
+	_delay_ms(5);
+	Temp_Value = (uint8)(((uint32)Adc_Value*150*2.56)/(1023*1.5));
+#endif
+
+	return Temp_Value;
+
+}
+

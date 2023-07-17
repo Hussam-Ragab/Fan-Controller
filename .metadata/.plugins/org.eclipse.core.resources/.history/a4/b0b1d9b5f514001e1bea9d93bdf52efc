@@ -1,0 +1,15 @@
+
+
+#include "Common_Macros.h"
+#include "GPIO.h"
+
+void DcMotor_Init(void)
+{
+	GPIO_SetupPinDirection(PORTB_ID, PIN0_ID, PIN_OUTPUT);
+	GPIO_SetupPinDirection(PORTB_ID, PIN1_ID, PIN_OUTPUT);
+
+}
+
+void DcMotor_Rotate(DcMotor_State State, uint8 Speed);
+
+

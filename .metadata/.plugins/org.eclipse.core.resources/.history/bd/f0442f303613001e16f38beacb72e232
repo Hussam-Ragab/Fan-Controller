@@ -1,0 +1,18 @@
+
+
+#include "LCD.h"
+
+int main(void)
+{
+	LCD_Init();
+	//LCD_DisplayCharacter('H');
+	//LCD_DisplayString("Valeo");
+	LCD_DisplayStringRowColumn(ROW0_ID, 1, "Embedded");
+	LCD_DisplayStringRowColumn(ROW1_ID, 2, "Diploma");
+
+	while(1)
+	{
+
+	}
+
+}

@@ -1,0 +1,19 @@
+
+
+#ifndef MOTOR_H_
+#define MOTOR_H_
+
+#include "Standard_Types.h"
+
+typedef enum{
+	Stop,
+	ClockWise,
+	Anti_ClockWise
+
+}DcMotor_State;
+
+void DcMotor_Init(void);
+
+void DcMotor_Rotate(DcMotor_State State, uint8 Speed);
+
+#endif /* MOTOR_H_ */

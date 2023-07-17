@@ -1,0 +1,76 @@
+/******************************************************************************
+ *
+ * Module: Common - Macros
+ *
+ * File Name: Common_Macros.h
+ *
+ * Description: Commonly used Macros
+ *
+ * Author: Mohamed Tarek
+ *
+ *******************************************************************************/
+
+#ifndef COMMON_MACROS_H_
+#define COMMON_MACROS_H_
+
+/*******************************************************************************
+ *                         Macros For Defining Registers AVR Atmega32        *
+ *******************************************************************************/
+
+/*Data Direction Registers*/
+#define		DDRA_REG		(*(volatile uint8*)(0x3A))
+#define		DDRB_REG		(*(volatile uint8*)(0x37))
+#define		DDRC_REG		(*(volatile uint8*)(0x34))
+#define		DDRD_REG		(*(volatile uint8*)(0x31))
+
+/*Input Registers*/
+#define		PINA_REG		(*(const volatile uint8* const)(0x39))
+#define		PINB_REG		(*(const volatile uint8* const)(0x36))
+#define		PINC_REG		(*(const volatile uint8* const)(0x33))
+#define		PIND_REG		(*(const volatile uint8* const)(0x30))
+
+/*Output Registers*/
+#define		PORTA_REG		(*(volatile uint8*)(0x3B))
+#define		PORTB_REG		(*(volatile uint8*)(0x38))
+#define		PORTC_REG		(*(volatile uint8*)(0x35))
+#define		PORTD_REG		(*(volatile uint8*)(0x32))
+
+#define		SREG_REG		(*(volatile uint8*)(0x5F))
+
+
+
+/*******************************************************************************
+ *                                Macros For Bit                               *
+ *******************************************************************************/
+
+/*Set a Certain Bit at any Register*/
+#define		SET_BIT(REGISTER,BIT_NUM)		    (REGISTER = (REGISTER | (1<<BIT_NUM)))
+
+/*Clear a Certain Bit at any Register*/
+#define		CLEAR_BIT(REGISTER,BIT_NUM)		    (REGISTER = (REGISTER & ~(1<<BIT_NUM)))
+
+/*Toggle a Certain Bit at any Register*/
+#define		TOGGLE_BIT(REGISTER,BIT_NUM)		(REGISTER = (REGISTER ^ (1<<BIT_NUM)))
+
+/*Get value of Bit at any Register*/
+#define		GET_BIT(REGISTER,BIT_NUM)		    (((REGISTER & (1<<BIT_NUM)) >> (BIT_NUM)))
+
+/*Check if Specific Bit is Set at any Register and return True if Yes*/
+#define		BIT_IS_SET(REGISTER,BIT_NUM)		(REGISTER & (1<<BIT_NUM))
+
+/*Check if Specific Bit is Clear at any Register and return True if Yes*/
+#define		BIT_IS_CLEAR(REGISTER,BIT_NUM)		(!(REGISTER & (1<<BIT_NUM)))
+
+/*******************************************************************************
+ *                                Macros For Register                          *
+ *******************************************************************************/
+
+/*Rotate Right of Register value with number of rotates */
+#define		ROTATE_RIGHT(REGISTER,NUMBER)		(REGISTER = (REGISTER >> NUMBER) | (REGISTER << ((8*sizeof(REGISTER)) - NUMBER)))
+
+/*Rotate Left of Register value with number of rotates */
+#define		ROTATE_LEFT(REGISTER,NUMBER)		(REGISTER = (REGISTER << NUMBER) | (REGISTER >> ((8*sizeof(REGISTER)) - NUMBER)))
+
+
+
+#endif /* COMMON_MACROS_H_ */

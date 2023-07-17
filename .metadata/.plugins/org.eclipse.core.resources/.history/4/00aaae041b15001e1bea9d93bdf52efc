@@ -1,0 +1,71 @@
+/*
+ ===================================================================================================
+ Name        : temp_sensor_example.c
+ Author      : Mohamed Tarek
+ Description : Test the ADC driver designed with interrupts technique using LM35 Temperature Sensor
+ Date        : 28/12/2017
+ ===================================================================================================
+ */
+
+
+#include "ADC.h"
+#include "LCD.h"
+#include "LM35.h"
+#include "Motor.h"
+
+
+int main(void)
+{
+	uint16 temp;
+	ADC_Configure Configure = {Internal_Vref, ADC0, ADLAR_Low, F_CPU_8, Free_Running_mode};
+	LCD_Init(); /* initialize LCD driver */
+	ADC_Init(&Configure); /* initialize ADC driver */
+	DcMotor_Init();
+	LCD_MoveCursor(1,2);
+	LCD_DisplayString("Temp =    C");
+	while(1)
+	{
+		temp = LM35_GetTemperature();
+
+		/* Display the temperature value every time at same position */
+		LCD_MoveCursor(1,9);
+		if(temp < 30)
+		{
+			DcMotor_Rotate(Stop, 0);
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan is OFF");
+
+		}
+		else if(temp >= 30 && temp < 60)
+		{
+			DcMotor_Rotate(Stop, 0);
+			//DcMotor_Rotate(ClockWise, 25);
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan is ON");
+		}
+		else if(temp >= 60 && temp < 90)
+		{
+			DcMotor_Rotate(ClockWise, 50);
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan is ON");
+		}
+		else if(temp >= 90 && temp < 120)
+		{
+			DcMotor_Rotate(ClockWise, 75);
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan is ON");
+		}
+		else
+		{
+			DcMotor_Rotate(ClockWise, 100);
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan is ON");
+
+		}
+	}
+}

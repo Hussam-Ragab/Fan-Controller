@@ -1,0 +1,10 @@
+
+
+
+#ifndef LM35_H_
+#define LM35_H_
+#include "Standard_Types.h"
+
+uint8 LM35_GetTemperature(void);
+
+#endif /* LM35_H_ */

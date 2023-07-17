@@ -1,0 +1,50 @@
+/******************************************************************************
+ *
+ * Module: Common - Macros
+ *
+ * File Name: Common_Macros.h
+ *
+ * Description: Commonly used Macros
+ *
+ * Author: Hossam-Ragab
+ *
+ *******************************************************************************/
+
+#ifndef COMMON_MACROS_H_
+#define COMMON_MACROS_H_
+
+/*******************************************************************************
+ *                                Macros For Bit                               *
+ *******************************************************************************/
+
+/*Set a Certain Bit at any Register*/
+#define		SET_BIT(REGISTER,BIT_NUM)		    (REGISTER = (REGISTER | (1<<BIT_NUM)))
+
+/*Clear a Certain Bit at any Register*/
+#define		CLEAR_BIT(REGISTER,BIT_NUM)		    (REGISTER = (REGISTER & ~(1<<BIT_NUM)))
+
+/*Toggle a Certain Bit at any Register*/
+#define		TOGGLE_BIT(REGISTER,BIT_NUM)		(REGISTER = (REGISTER ^ (1<<BIT_NUM)))
+
+/*Get value of Bit at any Register*/
+#define		GET_BIT(REGISTER,BIT_NUM)		    (((REGISTER & (1<<BIT_NUM)) >> (BIT_NUM)))
+
+/*Check if Specific Bit is Set at any Register and return True if Yes*/
+#define		BIT_IS_SET(REGISTER,BIT_NUM)		(REGISTER & (1<<BIT_NUM))
+
+/*Check if Specific Bit is Clear at any Register and return True if Yes*/
+#define		BIT_IS_CLEAR(REGISTER,BIT_NUM)		(!(REGISTER & (1<<BIT_NUM)))
+
+/*******************************************************************************
+ *                                Macros For Register                          *
+ *******************************************************************************/
+
+/*Rotate Right of Register value with number of rotates */
+#define		ROTATE_RIGHT(REGISTER,NUMBER)		(REGISTER = (REGISTER >> NUMBER) | (REGISTER << ((8*sizeof(REGISTER)) - NUMBER)))
+
+/*Rotate Left of Register value with number of rotates */
+#define		ROTATE_LEFT(REGISTER,NUMBER)		(REGISTER = (REGISTER << NUMBER) | (REGISTER >> ((8*sizeof(REGISTER)) - NUMBER)))
+
+
+
+#endif /* COMMON_MACROS_H_ */

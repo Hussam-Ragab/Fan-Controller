@@ -1,0 +1,51 @@
+/*
+ ===================================================================================================
+ Name        : temp_sensor_example.c
+ Author      : Mohamed Tarek
+ Description : Test the ADC driver designed with interrupts technique using LM35 Temperature Sensor
+ Date        : 28/12/2017
+ ===================================================================================================
+ */
+
+
+#include "ADC.h"
+#include "LCD.h"
+#include "LM35.h"
+#include "Motor.h"
+
+int main(void)
+{
+	uint16 temp;
+	ADC_Configure Configure = {Internal_Vref, ADC0, ADLAR_Low, F_CPU_8, Free_Running_mode};
+	//SREG_REG |= (1<<7);/* Enable Global Interrupts */
+
+	LCD_Init(); /* initialize LCD driver */
+	ADC_Init(&Configure); /* initialize ADC driver */
+	DcMotor_Init();
+
+
+	/* Display this string "Temp =   C" only once on LCD at the first row */
+	LCD_MoveCursor(1,2);
+	LCD_DisplayString("Temp =    C");
+    while(1)
+    {
+    	temp = LM35_GetTemperature();
+
+		/* Display the temperature value every time at same position */
+		LCD_MoveCursor(1,9);
+		if(temp < 30)
+		{
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan Is Off");
+
+		}
+		else if(temp > 30)
+		{
+			DcMotor_Rotate(ClockWise, 25);
+			LCD_IntegerToString(temp);
+			LCD_MoveCursor(0,2);
+			LCD_DisplayString("Fan ON 25%");
+		}
+    }
+}

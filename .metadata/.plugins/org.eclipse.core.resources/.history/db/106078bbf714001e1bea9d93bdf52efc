@@ -1,0 +1,9 @@
+/*
+ * PWM.c
+ *
+ *  Created on: Jun 27, 2023
+ *      Author: Hossam Ragab
+ */
+#include "PWM.h"
+
+void PWM_Timer0_Start(uint8 DutyCycle);
